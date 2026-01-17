@@ -1,5 +1,6 @@
+import 'package:dental_seller/core/constants/storage_keys.dart';
 import 'package:dio/dio.dart';
-import '../services/secure_storage_service.dart';
+import '../storage/secure_storage_service.dart';
 
 Dio setupDio(SecureStorageService storage) {
   final dio = Dio();
@@ -14,7 +15,7 @@ Dio setupDio(SecureStorageService storage) {
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final token = await storage.getToken();
+        final token = await storage.get(StorageKeys.token);
         //   final cashOfficeId = await storage.getCashOfficeId();
 
         if (token != null && token.isNotEmpty) {
